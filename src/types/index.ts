@@ -9,6 +9,8 @@ export interface User {
   verified?: boolean;
 }
 
+export type PostFormat = 'normal' | 'height' | 'land' | 'full';
+
 export interface Post {
   id: string;
   user: User;
@@ -18,6 +20,8 @@ export interface Post {
   comments: number;
   timestamp: Date;
   isVideo?: boolean;
+  format?: PostFormat;
+  filter?: string;
 }
 
 export interface Story {

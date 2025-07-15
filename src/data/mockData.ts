@@ -1,4 +1,4 @@
-import { User, Post, Story, Conversation, ChatMessage } from '@/types';
+import { User, Post, Story, Conversation, ChatMessage, PostFormat } from '@/types';
 
 // Mock users
 export const mockUsers: User[] = [
@@ -41,7 +41,7 @@ export const mockUsers: User[] = [
   }
 ];
 
-// Mock posts with varied content
+// Mock posts with varied content and formats
 export const mockPosts: Post[] = [
   {
     id: '1',
@@ -50,35 +50,43 @@ export const mockPosts: Post[] = [
     caption: 'New art piece inspired by urban landscapes 🎨',
     likes: 324,
     comments: 28,
-    timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000)
+    timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000),
+    format: 'normal',
+    filter: 'vivid'
   },
   {
     id: '2',
     user: mockUsers[1],
-    imageUrl: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=400&fit=crop',
+    imageUrl: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=800&fit=crop',
     caption: 'Golden hour magic ✨',
     likes: 156,
     comments: 12,
-    timestamp: new Date(Date.now() - 5 * 60 * 60 * 1000)
+    timestamp: new Date(Date.now() - 5 * 60 * 60 * 1000),
+    format: 'height',
+    filter: 'warm'
   },
   {
     id: '3',
     user: mockUsers[2],
-    imageUrl: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=400&fit=crop',
+    imageUrl: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=400&fit=crop',
     caption: 'Late night coding session 💻',
     likes: 89,
     comments: 7,
-    timestamp: new Date(Date.now() - 8 * 60 * 60 * 1000)
+    timestamp: new Date(Date.now() - 8 * 60 * 60 * 1000),
+    format: 'land',
+    filter: 'cool'
   },
   {
     id: '4',
     user: mockUsers[3],
-    imageUrl: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=400&fit=crop',
+    imageUrl: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&h=800&fit=crop',
     caption: 'New track coming soon! 🎵',
     likes: 445,
     comments: 34,
     timestamp: new Date(Date.now() - 12 * 60 * 60 * 1000),
-    isVideo: true
+    isVideo: true,
+    format: 'full',
+    filter: 'dramatic'
   },
   {
     id: '5',
@@ -87,16 +95,42 @@ export const mockPosts: Post[] = [
     caption: 'Street art vibes',
     likes: 278,
     comments: 19,
-    timestamp: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000)
+    timestamp: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
+    format: 'normal',
+    filter: 'vintage'
   },
   {
     id: '6',
     user: mockUsers[1],
-    imageUrl: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400&h=400&fit=crop',
+    imageUrl: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&h=400&fit=crop',
     caption: 'Mountain adventures',
     likes: 567,
     comments: 45,
-    timestamp: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000)
+    timestamp: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
+    format: 'land',
+    filter: 'nature'
+  },
+  {
+    id: '7',
+    user: mockUsers[3],
+    imageUrl: 'https://images.unsplash.com/photo-1582562124811-c09040d0a901?w=400&h=800&fit=crop',
+    caption: 'Peaceful moments 🐱',
+    likes: 892,
+    comments: 67,
+    timestamp: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
+    format: 'height',
+    filter: 'soft'
+  },
+  {
+    id: '8',
+    user: mockUsers[2],
+    imageUrl: 'https://images.unsplash.com/photo-1472396961693-142e6e269027?w=800&h=800&fit=crop',
+    caption: 'Wildlife wonder ✨',
+    likes: 1234,
+    comments: 89,
+    timestamp: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000),
+    format: 'full',
+    filter: 'nature'
   }
 ];
 
@@ -108,16 +142,28 @@ export const generateMorePosts = (count: number = 20): Post[] => {
     'photo-1484506326999-235577339887', 'photo-1506905925346-21bda4d32df4'
   ];
   
-  return Array.from({ length: count }, (_, index) => ({
-    id: `generated-${Date.now()}-${index}`,
-    user: mockUsers[Math.floor(Math.random() * mockUsers.length)],
-    imageUrl: `https://images.unsplash.com/${imageIds[Math.floor(Math.random() * imageIds.length)]}?w=400&h=400&fit=crop&t=${Date.now()}`,
-    caption: ['Amazing shot! 📸', 'Love this vibe ✨', 'Perfect moment', 'Beautiful capture', ''][Math.floor(Math.random() * 5)],
-    likes: Math.floor(Math.random() * 1000) + 10,
-    comments: Math.floor(Math.random() * 50) + 1,
-    timestamp: new Date(Date.now() - Math.random() * 7 * 24 * 60 * 60 * 1000),
-    isVideo: Math.random() > 0.8
-  }));
+  const formats: PostFormat[] = ['normal', 'height', 'land', 'full'];
+  const filters = ['vivid', 'warm', 'cool', 'dramatic', 'vintage', 'nature', 'soft'];
+  
+  return Array.from({ length: count }, (_, index) => {
+    const format = formats[Math.floor(Math.random() * formats.length)];
+    const dimensions = format === 'height' ? '400&h=800' : 
+                     format === 'land' ? '800&h=400' : 
+                     format === 'full' ? '800&h=800' : '400&h=400';
+    
+    return {
+      id: `generated-${Date.now()}-${index}`,
+      user: mockUsers[Math.floor(Math.random() * mockUsers.length)],
+      imageUrl: `https://images.unsplash.com/${imageIds[Math.floor(Math.random() * imageIds.length)]}?w=${dimensions}&fit=crop&t=${Date.now()}`,
+      caption: ['Amazing shot! 📸', 'Love this vibe ✨', 'Perfect moment', 'Beautiful capture', ''][Math.floor(Math.random() * 5)],
+      likes: Math.floor(Math.random() * 1000) + 10,
+      comments: Math.floor(Math.random() * 50) + 1,
+      timestamp: new Date(Date.now() - Math.random() * 7 * 24 * 60 * 60 * 1000),
+      isVideo: Math.random() > 0.8,
+      format,
+      filter: filters[Math.floor(Math.random() * filters.length)]
+    };
+  });
 };
 
 // Mock stories

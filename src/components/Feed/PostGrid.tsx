@@ -5,9 +5,10 @@ import { Loader2 } from 'lucide-react';
 interface PostGridProps {
   posts: Post[];
   loading: boolean;
+  onPostClick: (post: Post) => void;
 }
 
-export const PostGrid = ({ posts, loading }: PostGridProps) => {
+export const PostGrid = ({ posts, loading, onPostClick }: PostGridProps) => {
   return (
     <div className="px-4">
       <div className="mozaik-grid">
@@ -16,6 +17,7 @@ export const PostGrid = ({ posts, loading }: PostGridProps) => {
             key={post.id} 
             post={post} 
             index={index}
+            onPostClick={onPostClick}
           />
         ))}
       </div>

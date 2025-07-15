@@ -1,30 +1,47 @@
 import { Post } from '@/types';
 import { Play } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 interface PostCardProps {
   post: Post;
   index: number;
+  onPostClick: (post: Post) => void;
 }
 
-export const PostCard = ({ post, index }: PostCardProps) => {
-  const navigate = useNavigate();
+export const PostCard = ({ post, index, onPostClick }: PostCardProps) => {
+  const getFormatClass = () => {
+    switch (post.format) {
+      case 'height': return 'post-height';
+      case 'land': return 'post-land';
+      case 'full': return 'post-full';
+      default: return 'post-normal';
+    }
+  };
+
+  const getFilterClass = () => {
+    return post.filter ? `filter-${post.filter}` : '';
+  };
 
   const handleClick = () => {
-    navigate(`/profile/${post.user.id}`);
+    onPostClick(post);
   };
 
   return (
     <div 
-      className="aspect-square relative bg-muted rounded-lg overflow-hidden cursor-pointer group mozaik-transition animate-fade-in"
-      style={{ animationDelay: `${index * 50}ms` }}
+      className={`relative bg-muted rounded-lg overflow-hidden cursor-pointer group mozaik-transition animate-fade-in ${getFormatClass()}`}
+      style={{ 
+        animationDelay: `${index * 50}ms`,
+        aspectRatio: post.format === 'height' ? '1/2' : 
+                    post.format === 'land' ? '2/1' : 
+                    post.format === 'full' ? '1/1' : '1/1'
+      }}
       onClick={handleClick}
     >
       {/* Image */}
       <img
         src={post.imageUrl}
         alt={post.caption || 'Post'}
-        className="w-full h-full object-cover group-hover:scale-110 mozaik-transition"
+        className={`w-full h-full object-cover group-hover:scale-110 mozaik-transition ${getFilterClass()}`}
         loading="lazy"
       />
       

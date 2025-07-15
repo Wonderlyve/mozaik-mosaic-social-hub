@@ -3,11 +3,15 @@ import { Post } from '@/types';
 import { mockPosts, generateMorePosts } from '@/data/mockData';
 import { PostGrid } from '@/components/Feed/PostGrid';
 import { StoriesBar } from '@/components/Feed/StoriesBar';
+import { PostModal } from '@/components/Feed/PostModal';
+import { CreateInstantButton } from '@/components/Feed/CreateInstantButton';
 
 export const Feed = () => {
   const [posts, setPosts] = useState<Post[]>(mockPosts);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
+  const [selectedPost, setSelectedPost] = useState<Post | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const loadMorePosts = useCallback(async () => {
     if (loading || !hasMore) return;
@@ -41,13 +45,33 @@ export const Feed = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [loadMorePosts]);
 
+  const handlePostClick = (post: Post) => {
+    setSelectedPost(post);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedPost(null);
+  };
+
   return (
     <div className="pb-4">
       {/* Stories Bar */}
       <StoriesBar />
       
       {/* Posts Grid */}
-      <PostGrid posts={posts} loading={loading} />
+      <PostGrid posts={posts} loading={loading} onPostClick={handlePostClick} />
+      
+      {/* Create Instant Button */}
+      <CreateInstantButton />
+      
+      {/* Post Modal */}
+      <PostModal 
+        post={selectedPost}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+      />
     </div>
   );
 };

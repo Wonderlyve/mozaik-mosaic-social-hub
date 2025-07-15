@@ -83,7 +83,7 @@ export const Profile = () => {
 
         <TabsContent value="posts" className="mt-0">
           {userPosts.length > 0 ? (
-            <PostGrid posts={userPosts} loading={false} />
+            <PostGrid posts={userPosts} loading={false} onPostClick={() => {}} />
           ) : (
             <div className="text-center py-12 text-muted-foreground">
               <Grid className="w-12 h-12 mx-auto mb-2 opacity-50" />
