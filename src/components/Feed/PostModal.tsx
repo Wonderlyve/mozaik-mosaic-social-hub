@@ -1,5 +1,5 @@
 import { Post } from '@/types';
-import { Dialog, DialogContent } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Heart, MessageCircle, Share, User, Play } from 'lucide-react';
@@ -40,6 +40,9 @@ export const PostModal = ({ post, isOpen, onClose }: PostModalProps) => {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="p-0 max-w-md mx-auto h-[90vh] flex flex-col bg-card">
+        <DialogTitle className="sr-only">
+          Post de {post.user.displayName}
+        </DialogTitle>
         {/* Header */}
         <div className="flex items-center gap-3 p-4 border-b border-border">
           <Avatar className="w-10 h-10">
@@ -62,17 +65,21 @@ export const PostModal = ({ post, isOpen, onClose }: PostModalProps) => {
 
         {/* Media */}
         <div className="flex-1 relative bg-black flex items-center justify-center">
-          <img
-            src={post.imageUrl}
-            alt={post.caption || 'Post'}
-            className={`max-w-full max-h-full object-contain ${getFilterClass()}`}
-          />
-          {post.isVideo && (
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="bg-black/50 rounded-full p-3">
-                <Play className="w-8 h-8 text-white fill-white" />
-              </div>
-            </div>
+          {post.isVideo ? (
+            <video
+              src={post.imageUrl}
+              className={`max-w-full max-h-full object-contain ${getFilterClass()}`}
+              controls
+              autoPlay
+              muted
+              loop
+            />
+          ) : (
+            <img
+              src={post.imageUrl}
+              alt={post.caption || 'Post'}
+              className={`max-w-full max-h-full object-contain ${getFilterClass()}`}
+            />
           )}
         </div>
 

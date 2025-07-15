@@ -41,29 +41,31 @@ export const mockUsers: User[] = [
   }
 ];
 
-// Mock posts with varied content and formats
+// Mock posts with varied content and formats including selfies
 export const mockPosts: Post[] = [
   {
     id: '1',
     user: mockUsers[0],
-    imageUrl: 'https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?w=400&h=400&fit=crop',
-    caption: 'New art piece inspired by urban landscapes 🎨',
+    imageUrl: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop&crop=face',
+    caption: 'Instant selfie! Feeling good today ☀️',
     likes: 324,
     comments: 28,
     timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000),
     format: 'normal',
-    filter: 'vivid'
+    filter: 'vivid',
+    isInstant: true
   },
   {
     id: '2',
     user: mockUsers[1],
-    imageUrl: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=800&fit=crop',
-    caption: 'Golden hour magic ✨',
+    imageUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=800&fit=crop&crop=face',
+    caption: 'Golden hour selfie ✨',
     likes: 156,
     comments: 12,
     timestamp: new Date(Date.now() - 5 * 60 * 60 * 1000),
     format: 'height',
-    filter: 'warm'
+    filter: 'warm',
+    isInstant: true
   },
   {
     id: '3',
@@ -91,13 +93,14 @@ export const mockPosts: Post[] = [
   {
     id: '5',
     user: mockUsers[0],
-    imageUrl: 'https://images.unsplash.com/photo-1536431311719-398b6704d4cc?w=400&h=400&fit=crop',
-    caption: 'Street art vibes',
+    imageUrl: 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=400&h=400&fit=crop&crop=face',
+    caption: 'Instant mood 📸',
     likes: 278,
     comments: 19,
     timestamp: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
     format: 'normal',
-    filter: 'vintage'
+    filter: 'vintage',
+    isInstant: true
   },
   {
     id: '6',
@@ -113,13 +116,14 @@ export const mockPosts: Post[] = [
   {
     id: '7',
     user: mockUsers[3],
-    imageUrl: 'https://images.unsplash.com/photo-1582562124811-c09040d0a901?w=400&h=800&fit=crop',
-    caption: 'Peaceful moments 🐱',
+    imageUrl: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=800&fit=crop&crop=face',
+    caption: 'Perfect instant! ✨',
     likes: 892,
     comments: 67,
     timestamp: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
     format: 'height',
-    filter: 'soft'
+    filter: 'soft',
+    isInstant: true
   },
   {
     id: '8',
@@ -131,6 +135,30 @@ export const mockPosts: Post[] = [
     timestamp: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000),
     format: 'full',
     filter: 'nature'
+  },
+  {
+    id: '9',
+    user: mockUsers[1],
+    imageUrl: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=800&h=800&fit=crop&crop=face',
+    caption: 'Instant moment full size 💫',
+    likes: 456,
+    comments: 32,
+    timestamp: new Date(Date.now() - 6 * 60 * 60 * 1000),
+    format: 'full',
+    filter: 'vivid',
+    isInstant: true
+  },
+  {
+    id: '10',
+    user: mockUsers[2],
+    imageUrl: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=800&h=400&fit=crop&crop=face',
+    caption: 'Landscape instant selfie 🌅',
+    likes: 189,
+    comments: 15,
+    timestamp: new Date(Date.now() - 1 * 60 * 60 * 1000),
+    format: 'land',
+    filter: 'warm',
+    isInstant: true
   }
 ];
 
@@ -142,26 +170,45 @@ export const generateMorePosts = (count: number = 20): Post[] => {
     'photo-1484506326999-235577339887', 'photo-1506905925346-21bda4d32df4'
   ];
   
+  // Selfie image IDs for instant posts
+  const selfieIds = [
+    'photo-1544005313-94ddf0286df2', 'photo-1507003211169-0a1dd7228f2d',
+    'photo-1438761681033-6461ffad8d80', 'photo-1494790108755-2616b612b786',
+    'photo-1472099645785-5658abf4ff4e', 'photo-1531123897727-8f129e1688ce'
+  ];
+  
   const formats: PostFormat[] = ['normal', 'height', 'land', 'full'];
   const filters = ['vivid', 'warm', 'cool', 'dramatic', 'vintage', 'nature', 'soft'];
   
   return Array.from({ length: count }, (_, index) => {
     const format = formats[Math.floor(Math.random() * formats.length)];
+    const isInstant = Math.random() > 0.6; // 40% chance d'être un instant
+    const isVideo = Math.random() > 0.85; // 15% chance d'être une vidéo
+    
     const dimensions = format === 'height' ? '400&h=800' : 
                      format === 'land' ? '800&h=400' : 
                      format === 'full' ? '800&h=800' : '400&h=400';
     
+    const cropParam = isInstant ? '&crop=face' : '';
+    const imageSource = isInstant ? selfieIds : imageIds;
+    const imageId = imageSource[Math.floor(Math.random() * imageSource.length)];
+    
+    const captions = isInstant 
+      ? ['Instant selfie! 🤳', 'Quick pic ✨', 'Feeling good! 😊', 'Perfect moment 📸', 'Just now! 💫']
+      : ['Amazing shot! 📸', 'Love this vibe ✨', 'Perfect moment', 'Beautiful capture', 'Great times! 🎉'];
+    
     return {
       id: `generated-${Date.now()}-${index}`,
       user: mockUsers[Math.floor(Math.random() * mockUsers.length)],
-      imageUrl: `https://images.unsplash.com/${imageIds[Math.floor(Math.random() * imageIds.length)]}?w=${dimensions}&fit=crop&t=${Date.now()}`,
-      caption: ['Amazing shot! 📸', 'Love this vibe ✨', 'Perfect moment', 'Beautiful capture', ''][Math.floor(Math.random() * 5)],
+      imageUrl: `https://images.unsplash.com/${imageId}?w=${dimensions}&fit=crop${cropParam}&t=${Date.now()}`,
+      caption: captions[Math.floor(Math.random() * captions.length)],
       likes: Math.floor(Math.random() * 1000) + 10,
       comments: Math.floor(Math.random() * 50) + 1,
       timestamp: new Date(Date.now() - Math.random() * 7 * 24 * 60 * 60 * 1000),
-      isVideo: Math.random() > 0.8,
+      isVideo,
       format,
-      filter: filters[Math.floor(Math.random() * filters.length)]
+      filter: filters[Math.floor(Math.random() * filters.length)],
+      isInstant
     };
   });
 };

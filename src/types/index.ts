@@ -20,8 +20,9 @@ export interface Post {
   comments: number;
   timestamp: Date;
   isVideo?: boolean;
-  format?: PostFormat;
+  format: PostFormat;
   filter?: string;
+  isInstant?: boolean;
 }
 
 export interface Story {
