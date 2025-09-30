@@ -38,11 +38,13 @@ export const PostCard = ({ post, index, onPostClick }: PostCardProps) => {
       {post.isVideo ? (
         <video
           src={post.imageUrl}
+          poster={post.imageUrl}
           className={`w-full h-full object-cover group-hover:scale-105 mozaik-transition ${getFilterClass()}`}
           autoPlay
           muted
           loop
           playsInline
+          preload="metadata"
         />
       ) : (
         <img
