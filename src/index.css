@@ -131,7 +131,7 @@ All colors MUST be HSL for perfect theming
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 0.125rem;
-    grid-auto-rows: minmax(120px, auto);
+    grid-auto-rows: 120px;
     grid-auto-flow: row dense;
   }
 
