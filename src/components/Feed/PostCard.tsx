@@ -36,16 +36,15 @@ export const PostCard = ({ post, index, onPostClick }: PostCardProps) => {
     >
       {/* Image or Video */}
       {post.isVideo ? (
-        <video
-          src={post.imageUrl}
-          poster={post.imageUrl}
-          className={`w-full h-full object-cover group-hover:scale-105 mozaik-transition ${getFilterClass()}`}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-        />
+        <div className="relative w-full h-full">
+          <img
+            src={post.imageUrl}
+            alt={post.caption || 'Video post'}
+            className={`w-full h-full object-cover group-hover:scale-105 mozaik-transition ${getFilterClass()}`}
+            loading="lazy"
+          />
+          <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 mozaik-transition" />
+        </div>
       ) : (
         <img
           src={post.imageUrl}
