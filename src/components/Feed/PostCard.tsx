@@ -30,10 +30,7 @@ export const PostCard = ({ post, index, onPostClick }: PostCardProps) => {
     <div 
       className={`relative bg-muted rounded-md overflow-hidden cursor-pointer group mozaik-transition animate-fade-in ${getFormatClass()}`}
       style={{ 
-        animationDelay: `${index * 75}ms`,
-        aspectRatio: post.format === 'height' ? '1/2' : 
-                    post.format === 'land' ? '2/1' : 
-                    post.format === 'full' ? '1/1' : '1/1'
+        animationDelay: `${index * 75}ms`
       }}
       onClick={handleClick}
     >
