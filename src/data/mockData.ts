@@ -81,14 +81,36 @@ export const mockPosts: Post[] = [
   {
     id: '4',
     user: mockUsers[3],
-    imageUrl: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&h=800&fit=crop',
+    imageUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
     caption: 'New track coming soon! 🎵',
     likes: 445,
     comments: 34,
     timestamp: new Date(Date.now() - 12 * 60 * 60 * 1000),
     isVideo: true,
-    format: 'full',
+    format: 'normal',
     filter: 'dramatic'
+  },
+  {
+    id: '4b',
+    user: mockUsers[1],
+    imageUrl: 'https://www.w3schools.com/html/movie.mp4',
+    caption: 'Petit moment capturé 🎬',
+    likes: 213,
+    comments: 18,
+    timestamp: new Date(Date.now() - 3 * 60 * 60 * 1000),
+    isVideo: true,
+    format: 'height'
+  },
+  {
+    id: '4c',
+    user: mockUsers[2],
+    imageUrl: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4',
+    caption: 'Nature vibes 🌸',
+    likes: 387,
+    comments: 25,
+    timestamp: new Date(Date.now() - 7 * 60 * 60 * 1000),
+    isVideo: true,
+    format: 'land'
   },
   {
     id: '5',
