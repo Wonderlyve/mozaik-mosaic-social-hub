@@ -1,6 +1,6 @@
 import { Post } from '@/types';
 import { Play } from 'lucide-react';
-import { useState } from 'react';
+import { useRef, useEffect, useCallback } from 'react';
 
 interface PostCardProps {
   post: Post;
@@ -9,6 +9,39 @@ interface PostCardProps {
 }
 
 export const PostCard = ({ post, index, onPostClick }: PostCardProps) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !post.isVideo) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          video.currentTime = 0;
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      },
+      { threshold: 0.5 }
+    );
+
+    observer.observe(video);
+
+    // Loop only first 3 seconds
+    const handleTimeUpdate = () => {
+      if (video.currentTime >= 3) {
+        video.currentTime = 0;
+      }
+    };
+    video.addEventListener('timeupdate', handleTimeUpdate);
+
+    return () => {
+      observer.disconnect();
+      video.removeEventListener('timeupdate', handleTimeUpdate);
+    };
+  }, [post.isVideo]);
   const getFormatClass = () => {
     switch (post.format) {
       case 'height': return 'post-height';
@@ -37,13 +70,17 @@ export const PostCard = ({ post, index, onPostClick }: PostCardProps) => {
       {/* Image or Video */}
       {post.isVideo ? (
         <div className="relative w-full h-full">
-          <img
+          <video
+            ref={videoRef}
             src={post.imageUrl}
-            alt={post.caption || 'Video post'}
+            poster={post.imageUrl}
             className={`w-full h-full object-cover group-hover:scale-105 mozaik-transition ${getFilterClass()}`}
-            loading="lazy"
+            muted
+            playsInline
+            loop
+            preload="metadata"
           />
-          <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 mozaik-transition" />
+          <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 mozaik-transition pointer-events-none" />
         </div>
       ) : (
         <img
