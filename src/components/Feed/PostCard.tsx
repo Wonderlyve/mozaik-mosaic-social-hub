@@ -1,6 +1,7 @@
 import { Post } from '@/types';
-import { Play, Heart, Eye } from 'lucide-react';
+import { Play, Heart, Eye, MoreHorizontal } from 'lucide-react';
 import { useRef, useEffect, useState } from 'react';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 
 interface PostCardProps {
   post: Post;
@@ -95,7 +96,7 @@ export const PostCard = ({ post, index, onPostClick }: PostCardProps) => {
       )}
       
       {/* Video indicator */}
-      {post.isVideo && (
+      {post.isVideo && post.format !== 'wide' && (
         <div className="absolute top-2 right-2">
           <div className="bg-black/50 rounded-full p-1">
             <Play className="w-3 h-3 text-white fill-white" />
@@ -107,6 +108,24 @@ export const PostCard = ({ post, index, onPostClick }: PostCardProps) => {
       {post.isInstant && (
         <div className="absolute top-1.5 left-1.5 w-3 h-3 rounded-full bg-destructive flex items-center justify-center">
           <div className="w-1 h-1 rounded-full bg-white animate-pulse-glow" />
+        </div>
+      )}
+
+      {/* User info bar for wide format */}
+      {post.format === 'wide' && (
+        <div className="absolute top-0 left-0 right-0 bg-gradient-to-b from-black/60 to-transparent pt-2 pb-6 px-3">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <Avatar className="w-7 h-7 border border-white/30">
+                <AvatarImage src={post.user.avatar} alt={post.user.username} />
+                <AvatarFallback className="text-[10px]">{post.user.displayName[0]}</AvatarFallback>
+              </Avatar>
+              <span className="text-white text-xs font-semibold drop-shadow">{post.user.displayName}</span>
+            </div>
+            <button className="text-white/80 hover:text-white transition-colors" onClick={(e) => e.stopPropagation()}>
+              <MoreHorizontal className="w-4 h-4" />
+            </button>
+          </div>
         </div>
       )}
       
