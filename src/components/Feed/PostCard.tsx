@@ -102,11 +102,12 @@ export const PostCard = ({ post, index, onPostClick }: PostCardProps) => {
         </div>
       )}
 
-      {/* Instant indicator */}
+      {/* Live indicator */}
       {post.isInstant && (
         <div className="absolute top-2 left-2">
-          <div className="bg-primary/80 text-primary-foreground text-xs px-2 py-1 rounded-full font-medium">
-            Instant
+          <div className="bg-destructive/80 text-destructive-foreground text-xs px-2 py-1 rounded-full font-medium flex items-center gap-1">
+            <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse-glow" />
+            Live
           </div>
         </div>
       )}

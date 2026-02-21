@@ -20,10 +20,10 @@ All colors MUST be HSL for perfect theming
     --popover: 217 32% 15%;
     --popover-foreground: 210 40% 98%;
 
-    /* Mozaik brand colors - vibrant gradient system */
-    --primary: 260 100% 70%;
+    /* Wallé brand colors - vibrant blue gradient system */
+    --primary: 217 91% 60%;
     --primary-foreground: 210 40% 98%;
-    --primary-glow: 300 100% 75%;
+    --primary-glow: 199 89% 48%;
 
     --secondary: 217 32% 20%;
     --secondary-foreground: 210 40% 98%;
@@ -40,7 +40,7 @@ All colors MUST be HSL for perfect theming
     /* Interactive elements */
     --border: 217 32% 25%;
     --input: 217 32% 20%;
-    --ring: 260 100% 70%;
+    --ring: 217 91% 60%;
 
     /* Mozaik specific gradients and effects */
     --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
