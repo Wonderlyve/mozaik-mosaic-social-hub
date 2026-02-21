@@ -12,8 +12,11 @@ export const MobileLayout = ({ children }: MobileLayoutProps) => {
       {/* Top Navigation */}
       <TopBar />
       
+      {/* Spacer */}
+      <div className="h-3 bg-background shrink-0" style={{ marginTop: '64px' }} />
+
       {/* Main Content */}
-      <main className="flex-1 overflow-hidden pt-16 pb-20">
+      <main className="flex-1 overflow-hidden pb-20">
         {children}
       </main>
       
