@@ -159,6 +159,17 @@ export const mockPosts: Post[] = [
     filter: 'nature'
   },
   {
+    id: '8b',
+    user: mockUsers[3],
+    imageUrl: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=800&fit=crop',
+    caption: 'Vue panoramique incroyable 🏔️',
+    likes: 756,
+    comments: 42,
+    timestamp: new Date(Date.now() - 4.5 * 24 * 60 * 60 * 1000),
+    format: 'wide' as PostFormat,
+    filter: 'dramatic'
+  },
+  {
     id: '9',
     user: mockUsers[1],
     imageUrl: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=800&h=800&fit=crop&crop=face',
@@ -199,7 +210,7 @@ export const generateMorePosts = (count: number = 20): Post[] => {
     'photo-1472099645785-5658abf4ff4e', 'photo-1531123897727-8f129e1688ce'
   ];
   
-  const formats: PostFormat[] = ['normal', 'height', 'land', 'full'];
+  const formats: PostFormat[] = ['normal', 'height', 'land', 'full', 'wide'];
   const filters = ['vivid', 'warm', 'cool', 'dramatic', 'vintage', 'nature', 'soft'];
   
   return Array.from({ length: count }, (_, index) => {

@@ -9,7 +9,7 @@ export interface User {
   verified?: boolean;
 }
 
-export type PostFormat = 'normal' | 'height' | 'land' | 'full';
+export type PostFormat = 'normal' | 'height' | 'land' | 'full' | 'wide';
 
 export interface Post {
   id: string;

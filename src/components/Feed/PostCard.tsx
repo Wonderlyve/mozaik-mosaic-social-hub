@@ -49,6 +49,7 @@ export const PostCard = ({ post, index, onPostClick }: PostCardProps) => {
       case 'height': return 'post-height';
       case 'land': return 'post-land';
       case 'full': return 'post-full';
+      case 'wide': return 'post-wide';
       default: return 'post-normal';
     }
   };
@@ -104,9 +105,9 @@ export const PostCard = ({ post, index, onPostClick }: PostCardProps) => {
 
       {/* Live indicator */}
       {post.isInstant && (
-        <div className="absolute top-2 left-2">
-          <div className="bg-destructive/80 text-destructive-foreground text-xs px-2 py-1 rounded-full font-medium flex items-center gap-1">
-            <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse-glow" />
+        <div className="absolute top-1.5 left-1.5">
+          <div className="bg-destructive/80 text-destructive-foreground text-[9px] px-1.5 py-0.5 rounded-full font-medium flex items-center gap-0.5">
+            <div className="w-1 h-1 rounded-full bg-white animate-pulse-glow" />
             Live
           </div>
         </div>
