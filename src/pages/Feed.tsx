@@ -4,7 +4,7 @@ import { mockPosts, generateMorePosts } from '@/data/mockData';
 import { PostGrid } from '@/components/Feed/PostGrid';
 import { StoriesBar } from '@/components/Feed/StoriesBar';
 import { PostModal } from '@/components/Feed/PostModal';
-import { CreateInstantButton } from '@/components/Feed/CreateInstantButton';
+
 
 export const Feed = () => {
   const [posts, setPosts] = useState<Post[]>(mockPosts);
@@ -62,8 +62,7 @@ export const Feed = () => {
       {/* Posts Grid */}
       <PostGrid posts={posts} loading={loading} onPostClick={handlePostClick} />
       
-      {/* Create Instant Button */}
-      <CreateInstantButton />
+      
       
       {/* Post Modal */}
       <PostModal 
