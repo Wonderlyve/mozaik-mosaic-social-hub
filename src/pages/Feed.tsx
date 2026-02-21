@@ -57,8 +57,7 @@ export const Feed = () => {
 
   return (
     <div className="pb-4">
-      {/* Stories Bar */}
-      <StoriesBar />
+      
       
       {/* Posts Grid */}
       <PostGrid posts={posts} loading={loading} onPostClick={handlePostClick} />

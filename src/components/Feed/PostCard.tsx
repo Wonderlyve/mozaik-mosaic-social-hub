@@ -1,5 +1,5 @@
 import { Post } from '@/types';
-import { Play, Heart, MessageCircle, UserPlus, Share2 } from 'lucide-react';
+import { Play, Heart, Eye } from 'lucide-react';
 import { useRef, useEffect, useState } from 'react';
 
 interface PostCardProps {
@@ -114,35 +114,16 @@ export const PostCard = ({ post, index, onPostClick }: PostCardProps) => {
       {/* Bottom action bar */}
       <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent pt-6 pb-1.5 px-2 pointer-events-auto">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <button
-              onClick={(e) => { e.stopPropagation(); setLiked(!liked); setLikeCount(l => liked ? l - 1 : l + 1); }}
-              className="flex items-center gap-0.5 text-white hover:scale-110 transition-transform"
-            >
-              <Heart className={`w-3.5 h-3.5 ${liked ? 'fill-red-500 text-red-500' : ''}`} />
-              <span className="text-[10px] font-medium">{likeCount}</span>
-            </button>
-            <button
-              onClick={(e) => { e.stopPropagation(); onPostClick(post); }}
-              className="flex items-center gap-0.5 text-white hover:scale-110 transition-transform"
-            >
-              <MessageCircle className="w-3.5 h-3.5" />
-              <span className="text-[10px] font-medium">{post.comments}</span>
-            </button>
-          </div>
-          <div className="flex items-center gap-2">
-            <button
-              onClick={(e) => { e.stopPropagation(); }}
-              className="text-white hover:scale-110 transition-transform"
-            >
-              <UserPlus className="w-3.5 h-3.5" />
-            </button>
-            <button
-              onClick={(e) => { e.stopPropagation(); }}
-              className="text-white hover:scale-110 transition-transform"
-            >
-              <Share2 className="w-3.5 h-3.5" />
-            </button>
+          <button
+            onClick={(e) => { e.stopPropagation(); setLiked(!liked); setLikeCount(l => liked ? l - 1 : l + 1); }}
+            className="flex items-center gap-0.5 text-white hover:scale-110 transition-transform"
+          >
+            <Heart className={`w-3.5 h-3.5 ${liked ? 'fill-red-500 text-red-500' : ''}`} />
+            <span className="text-[10px] font-medium">{likeCount}</span>
+          </button>
+          <div className="flex items-center gap-0.5 text-white/80">
+            <Eye className="w-3 h-3" />
+            <span className="text-[10px] font-medium">{post.comments + post.likes}</span>
           </div>
         </div>
       </div>
