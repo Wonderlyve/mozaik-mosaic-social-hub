@@ -46,12 +46,12 @@ export const mockPosts: Post[] = [
   {
     id: '1',
     user: mockUsers[0],
-    imageUrl: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop&crop=face',
+    imageUrl: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=800&h=800&fit=crop&crop=face',
     caption: 'Instant selfie! Feeling good today ☀️',
     likes: 324,
     comments: 28,
     timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000),
-    format: 'normal',
+    format: 'wide',
     filter: 'vivid',
     isInstant: true
   },
